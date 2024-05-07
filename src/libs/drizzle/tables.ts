@@ -7,6 +7,7 @@ export const gender = pgEnum('gender', ['MALE', 'FEMALE'] as const)
 
 export const user = pgTable('users', {
   id: text('id')
+    .notNull()
     .primaryKey()
     .$defaultFn(() => createId()),
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -22,6 +23,7 @@ export const user = pgTable('users', {
 
 export const animal = pgTable('animals', {
   id: text('id')
+    .notNull()
     .primaryKey()
     .$defaultFn(() => createId()),
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -47,9 +49,9 @@ export const animal = pgTable('animals', {
   // Contact
   contactPhone: text('contact_phone').notNull(),
   contactZipCode: text('contact_zip_code'),
-  contactCity: text('contact_address'),
-  contactAddress: text('contact_city'),
-  handedOverToOwner: boolean('contact_city').notNull().default(false),
+  contactCity: text('contact_city'),
+  contactAddress: text('contact_address'),
+  handedOverToOwner: boolean('handedOverToOwner').notNull().default(false),
 
   pictures: text('pictures')
     .array()

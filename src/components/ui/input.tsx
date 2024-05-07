@@ -16,6 +16,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
       )}
       ref={ref}
       onChange={(e) => {
+        if (type === 'file') return onChange?.(e)
         e.target.value = mask ? formatString(mask, e.target.value) : e.target.value
         onChange?.(e)
       }}
