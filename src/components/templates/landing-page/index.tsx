@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import Image from 'next/image'
 import Autoplay from 'embla-carousel-autoplay'
+import { ArrowRight } from 'lucide-react'
 import { Column } from '~/components/column'
 import { Grid } from '~/components/grid'
 import { Link } from '~/components/link'
@@ -21,7 +22,7 @@ function InfoBox({ label, value }: { label: string; value?: string }) {
 
 export function LandingPageUI({ animals, minioEndpoint }: { animals: AnimalSchema[]; minioEndpoint: string }) {
   const { user } = useAuth()
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
+  const plugin = useRef(Autoplay({ delay: 2000 }))
 
   return (
     <Grid>
@@ -78,13 +79,18 @@ export function LandingPageUI({ animals, minioEndpoint }: { animals: AnimalSchem
                   </Carousel>
                 </>
               )}
-              <div className="p-2 flex flex-wrap gap-y-2 gap-x-8">
+              <div className="p-4 flex flex-wrap gap-y-2 gap-x-8">
                 <InfoBox label="Nome" value={animal.name} />
                 <InfoBox label="Espécie" value={animal.species} />
                 <InfoBox label="Cor" value={animal.color} />
                 <InfoBox label="Cidade" value={animal.rescue.city} />
                 <InfoBox label="Bairro" value={animal.rescue.neighborhood} />
                 <InfoBox label="Rua" value={animal.rescue.street} />
+              </div>
+              <div className="p-2">
+                <Link href={`/animal/${animal._id}`} className={buttonVariants({ className: 'w-full' })}>
+                  Visualizar mais informações <ArrowRight />
+                </Link>
               </div>
             </div>
           </Column>
