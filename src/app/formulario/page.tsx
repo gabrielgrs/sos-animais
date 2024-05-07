@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { getAuthenticatedUser } from '~/actions/auth'
-import { AnimalForm } from '~/components/formulario/page'
+import { AnimalForm } from '~/components/formulario'
 
 export default async function FormPage() {
   const user = await getAuthenticatedUser()

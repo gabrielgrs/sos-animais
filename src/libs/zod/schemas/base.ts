@@ -37,6 +37,7 @@ export const animalSchema = z
       complement: z.string().optional(),
     }),
     contact: z.object({
+      name: z.string({ message: requiredField.message }),
       phone: z.string({ message: requiredField.message }),
       city: z.string().optional(),
       zipCode: z.string().optional(),

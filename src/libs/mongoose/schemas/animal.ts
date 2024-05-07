@@ -6,7 +6,7 @@ const schema = new Schema<AnimalSchema>(
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     name: { type: String },
     species: { type: String, required: true },
-    gender: { type: String, enum: ['MALE', 'FEMALE'], required: true },
+    gender: { type: String, enum: ['MALE', 'FEMALE'] },
     color: { type: String, required: true },
     breed: { type: String },
     rescue: {
@@ -19,6 +19,7 @@ const schema = new Schema<AnimalSchema>(
       complement: { type: String },
     },
     contact: {
+      name: { type: String, required: true },
       phone: { type: String, required: true },
       city: { type: String },
       zipCode: { type: String },
