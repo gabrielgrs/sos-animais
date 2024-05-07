@@ -1,23 +1,20 @@
 'use server'
 
-import { drizzleClient, tables } from '~/libs/drizzle'
-import { AnimalSchema } from '~/libs/drizzle/types'
+import schemas, { AnimalSchema } from '~/libs/mongoose'
+import { parseObject } from '~/utils/actions'
 import { getTokenData } from '~/utils/auth'
 
 export async function createAnimal(data: AnimalSchema) {
   const tokenData = await getTokenData()
   if (!tokenData) throw new Error('Unauthorized access')
 
-  const animal = await drizzleClient
-    .insert(tables.animal)
-    .values({
-      ...data,
-      userId: tokenData.id,
-      foundDate: new Date(data.foundDate),
-    })
-    .returning()
-    .then((res) => res[0])
+  const animal = await schemas.animal.create({
+    ...data,
+    userId: tokenData._id,
+    foundDate: new Date(data.rescue.date),
+  })
+
   if (!animal) throw new Error('Not found')
 
-  return animal
+  return parseObject(animal)
 }

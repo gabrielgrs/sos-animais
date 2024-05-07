@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { motion } from 'framer-motion'
 import { toast } from 'sonner'
 import { createAnimal } from '~/actions/animal/create'
@@ -11,15 +12,16 @@ import { Button, buttonVariants } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import { Select, SelectContent, SelectValue, SelectItem, SelectTrigger } from '~/components/ui/select'
 import { Textarea } from '~/components/ui/textarea'
-import { AnimalSchema } from '~/libs/drizzle/types'
+import { AnimalSchema } from '~/libs/mongoose'
+import { animalSchema } from '~/libs/zod/schemas'
 import { requiredField } from '~/utils/validation'
 import { Progress } from '../ui/progress'
 
 const defaultValues: Partial<AnimalSchema> = {}
 
-export function AnimalForm({ phone }: { phone: string | null }) {
+export function AnimalForm({ phone }: { phone?: string }) {
   const [isUploadingFile, setIsUploadingFile] = useState(false)
-  const form = useForm({ defaultValues: { ...defaultValues, phone } })
+  const form = useForm({ defaultValues: { ...defaultValues, phone }, resolver: zodResolver(animalSchema) })
   const { handleSubmit, formState, register, control } = form
   const { push } = useRouter()
   const [step, setStep] = useState(0)
@@ -186,7 +188,7 @@ export function AnimalForm({ phone }: { phone: string | null }) {
 
             <Column size={6}>
               <Fieldset label="Quando foi encontrado">
-                <Input {...register('foundDate')} placeholder="Data e hora" type="datetime-local" />
+                <Input {...register('rescue.date')} placeholder="Data e hora" type="datetime-local" />
               </Fieldset>
             </Column>
 
@@ -194,10 +196,10 @@ export function AnimalForm({ phone }: { phone: string | null }) {
               <Controller
                 control={control}
                 rules={{ required: requiredField }}
-                name="foundCity"
+                name="rescue.city"
                 render={({ field }) => {
                   return (
-                    <Fieldset label="Cidade" error={formState.errors.foundCity?.message}>
+                    <Fieldset label="Cidade" error={formState.errors.rescue?.city?.message}>
                       <Select onValueChange={(value) => field.onChange(value)}>
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Selecine" />
@@ -218,13 +220,13 @@ export function AnimalForm({ phone }: { phone: string | null }) {
 
             <Column size={4}>
               <Fieldset label="CEP">
-                <Input {...register('foundZipCode')} placeholder="Digite o CEP" mask="99999-999" />
+                <Input {...register('rescue.zipCode')} placeholder="Digite o CEP" mask="99999-999" />
               </Fieldset>
             </Column>
 
             <Column size={8}>
               <Fieldset label="Endereço" info="Rua, bairro, número e completemento">
-                <Input {...register('foundAddress')} placeholder="Digite o endereço" />
+                <Input {...register('rescue.street')} placeholder="Digite o endereço" />
               </Fieldset>
             </Column>
           </Grid>
@@ -249,9 +251,9 @@ export function AnimalForm({ phone }: { phone: string | null }) {
             </Column>
 
             <Column size={6}>
-              <Fieldset label="Telefone para contato" error={formState.errors.contactPhone?.message}>
+              <Fieldset label="Telefone para contato" error={formState.errors.contact?.phone?.message}>
                 <Input
-                  {...register('contactPhone', { required: requiredField })}
+                  {...register('contact.phone', { required: requiredField })}
                   placeholder="Telefone para contato"
                   mask="(99) 99999-9999"
                 />
@@ -297,7 +299,9 @@ export function AnimalForm({ phone }: { phone: string | null }) {
           ) : (
             <Button onClick={() => setStep(step - 1)}>Voltar</Button>
           )}
-          <Button loading={formState.isSubmitting || isUploadingFile}>{step === 3 ? 'Finalizar' : 'Avançar'}</Button>
+          <Button disabled={isUploadingFile} loading={formState.isSubmitting}>
+            {step === 3 ? 'Finalizar' : 'Avançar'}
+          </Button>
         </Column>
       </Grid>
     </form>

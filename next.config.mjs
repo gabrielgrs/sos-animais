@@ -10,10 +10,7 @@ const nextConfig = {
       },
     ],
   },
-  env: {
-    HUUMA_API_KEY: process.env.HUUMA_API_KEY,
-    STRIPE_CUSTOMER_PORTAL: process.env.STRIPE_CUSTOMER_PORTAL,
-  },
+  env: {},
   async headers() {
     return [
       {

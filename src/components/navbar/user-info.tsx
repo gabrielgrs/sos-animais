@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '~/components/ui/dropdown-menu'
-import { UserSchema } from '~/libs/drizzle/types'
+import { UserSchema } from '~/libs/mongoose'
 
 type DropdownItemProps = {
   onClick?: () => void

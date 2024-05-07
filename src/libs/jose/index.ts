@@ -1,8 +1,8 @@
 import * as jose from 'jose'
-import { UserSchema } from '../drizzle/types'
+import { UserSchema } from '../mongoose'
 import { zodEnvs } from '../zod/env'
 
-export type TokenData = Pick<UserSchema, 'id' | 'email' | 'role'>
+export type TokenData = Pick<UserSchema, '_id' | 'email' | 'role'>
 
 export const decodeToken = async (token: string) => {
   return jose

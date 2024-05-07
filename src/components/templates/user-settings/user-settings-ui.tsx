@@ -8,17 +8,17 @@ import { Link } from '~/components/link'
 import { Button, buttonVariants } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import { useAuth } from '~/hooks'
-import { UserSchema } from '~/libs/drizzle/types'
+import { UserSchema } from '~/libs/mongoose'
 
 export function UserSettingsUI({ defaultValues }: { defaultValues: Partial<UserSchema> }) {
   const { register, handleSubmit, formState } = useForm({ mode: 'all', defaultValues })
   const { onUpdateUser } = useAuth()
 
-  const onSubmit = async ({ name, phone }: Partial<UserSchema>) => {
+  const onSubmit = async ({ name }: Partial<UserSchema>) => {
     try {
-      await updateUser({ name, phone })
+      await updateUser({ name })
       toast.success('Perfil atualizado')
-      return onUpdateUser({ name, phone })
+      return onUpdateUser({ name })
     } catch {
       toast.error('Algo de errado aconteceu. Tente novamente mais tarde.')
     }

@@ -9,7 +9,7 @@ import { createOrFindUser } from './create-or-find-user'
 
 export async function sendAuthEmail(email: string) {
   const user = await createOrFindUser(email)
-  const token = await createToken({ id: user.id, email: user.email, role: user.role })
+  const token = await createToken({ _id: user._id, email: user.email, role: user.role })
 
   return resend.emails.send({
     from: `${APP_NAME} Magic Link <auth@huuma.co>`,

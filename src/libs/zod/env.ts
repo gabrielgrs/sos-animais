@@ -4,7 +4,7 @@ const envSchema = z.object({
   DOMAIN: z.string(),
   JWT_SECRET: z.string(),
   RESEND_KEY: z.string(),
-  DATABASE_URL: z.string(),
+  MONGODB_URI: z.string(),
   MINIO_ENDPOINT: z.string(),
   MINIO_ACCESS_KEY: z.string(),
   MINIO_SECRET_KEY: z.string(),

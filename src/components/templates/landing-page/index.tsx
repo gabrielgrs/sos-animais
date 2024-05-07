@@ -5,7 +5,7 @@ import { Grid } from '~/components/grid'
 import { Link } from '~/components/link'
 import { buttonVariants } from '~/components/ui/button'
 import { useAuth } from '~/hooks'
-import { AnimalSchema } from '~/libs/drizzle/types'
+import { AnimalSchema } from '~/libs/mongoose'
 
 export function LandingPageUI({ animals }: { animals: AnimalSchema[] }) {
   const { user } = useAuth()
@@ -27,7 +27,7 @@ export function LandingPageUI({ animals }: { animals: AnimalSchema[] }) {
       )}
 
       {animals.map((animal) => (
-        <Column key={animal.id} size={4}>
+        <Column key={animal._id} size={4}>
           {animal.name}
         </Column>
       ))}

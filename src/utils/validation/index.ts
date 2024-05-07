@@ -25,11 +25,6 @@ export const passwordPattern: Validation = {
   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$&*])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
 }
 
-export const slugPattern: Validation = {
-  message: 'Only letters, numbers and dashes',
-  value: /^[a-zA-Z0-9_-]+$/,
-}
-
 export const minLength = (quantity: number): Validation => ({
   message: `Min of ${quantity} character${quantity === 1 ? '' : 's'}`,
   value: quantity,

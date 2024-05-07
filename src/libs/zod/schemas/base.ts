@@ -1,5 +1,5 @@
 import * as z from 'zod'
-import { slugPattern } from '~/utils/validation'
+import { requiredField } from '~/utils/validation'
 
 // Define the Document schema
 export const documentSchema = z.object({
@@ -11,63 +11,40 @@ export const documentSchema = z.object({
 export const userSchema = z
   .object({
     email: z.string(),
-    name: z.string(),
-    avatar: z.string(),
-    stripeSubscriptionId: z.string().optional(),
-    stripeCustomerId: z.string(),
+    name: z.string().optional(),
+    phone: z.string().optional(),
     role: z.enum(['USER', 'ADMIN']),
   })
   .merge(documentSchema)
 
-export const memberSchema = z
+export const animalSchema = z
   .object({
-    user: userSchema,
-    email: z.string(),
-    accepted: z.boolean(),
-  })
-  .merge(documentSchema)
-
-export const metadataSchema = z.record(z.union([z.string(), z.boolean(), z.number()]))
-
-export const projectSchema = z
-  .object({
-    name: z.string(),
-    slug: z.string().regex(slugPattern.value, { message: slugPattern.message }),
-    apiKey: z.string(),
-    image: z.string().optional(),
-    domains: z.array(z.string()),
-    creator: z.union([z.string(), userSchema]),
-    members: z.array(memberSchema),
-  })
-  .merge(documentSchema)
-
-export const identitySchema = z
-  .object({
-    email: z.string(),
-    project: z.union([z.string(), projectSchema]),
-    metadata: metadataSchema.optional(),
-  })
-  .merge(documentSchema)
-
-export const eventSchema = z
-  .object({
-    name: z.string(),
-    channel: z.string().regex(slugPattern.value, { message: slugPattern.message }),
-    notify: z.boolean(),
-    creator: z.union([z.string(), userSchema.optional()]),
-    identity: z.union([z.string(), identitySchema.optional()]),
-    project: z.union([z.string(), projectSchema]),
-    metadata: metadataSchema.optional(),
-  })
-  .merge(documentSchema)
-
-export const widgetSchema = z
-  .object({
-    name: z.string(),
-    description: z.string().optional(),
-    color: z.string(),
-    creator: z.union([z.string(), userSchema]),
-    project: z.union([z.string(), projectSchema]),
-    channels: z.array(z.string()),
+    user: z.any(),
+    name: z.string().optional(),
+    species: z.string(),
+    gender: z.enum(['MALE', 'FEMALE']),
+    color: z.string({ message: requiredField.message }),
+    breed: z.string().optional(),
+    rescue: z.object({
+      date: z.date(),
+      zipCode: z.string().optional(),
+      city: z.string({ message: requiredField.message }),
+      neighborhood: z.string({ message: requiredField.message }),
+      street: z.string({ message: requiredField.message }),
+      number: z.string().optional(),
+      complement: z.string().optional(),
+    }),
+    contact: z.object({
+      phone: z.string({ message: requiredField.message }),
+      city: z.string().optional(),
+      zipCode: z.string().optional(),
+      neighborhood: z.string().optional(),
+      street: z.string().optional(),
+      number: z.string().optional(),
+      complement: z.string().optional(),
+    }),
+    handedOverToOwner: z.boolean(),
+    pictures: z.array(z.string()),
+    observations: z.string().optional(),
   })
   .merge(documentSchema)

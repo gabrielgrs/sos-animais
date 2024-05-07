@@ -1,9 +1,8 @@
 'use server'
 
-import { drizzleClient } from '~/libs/drizzle'
+import schemas from '~/libs/mongoose'
 import { FETCH_LIMIT } from '~/utils/constants'
 
 export async function getAllAnimals(limit = FETCH_LIMIT) {
-  const animals = await drizzleClient.query.animal.findMany({ limit })
-  return animals
+  return schemas.animal.find({ handedOverToOwner: false }).limit(limit)
 }
