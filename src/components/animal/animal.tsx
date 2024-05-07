@@ -62,6 +62,7 @@ export function AnimalUI({ animal, minioEndpoint }: { animal: AnimalSchema; mini
         <div className="p-4 flex flex-col">
           <h2>Dados do animal</h2>
           <InfoBox label="Nome" value={animal.name} />
+          <InfoBox label="Situação" value={animal.situation} />
           <InfoBox label="Espécie" value={animal.species} />
           <InfoBox label="Cor" value={animal.color} />
         </div>

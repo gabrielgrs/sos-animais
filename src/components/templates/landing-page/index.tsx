@@ -81,6 +81,7 @@ export function LandingPageUI({ animals, minioEndpoint }: { animals: AnimalSchem
               )}
               <div className="p-4 flex flex-wrap gap-y-2 gap-x-8">
                 <InfoBox label="Nome" value={animal.name} />
+                <InfoBox label="Situação" value={animal.situation} />
                 <InfoBox label="Espécie" value={animal.species} />
                 <InfoBox label="Cor" value={animal.color} />
                 <InfoBox label="Cidade" value={animal.rescue.city} />

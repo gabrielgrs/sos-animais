@@ -21,6 +21,7 @@ export const defaultValues: Partial<AnimalSchema> = {}
 
 const TOTAL_STEPS = 3
 
+const situation = ['Desaparecido', 'Resgatado', 'Entregue ao dono']
 const cities = ['Porto Alegre']
 const species = ['Cachorro', 'Gato', 'Passarinho', 'Peixe', 'Tartaruga', 'Roedor', 'Outro']
 const colors = ['Amarelo', 'Branco', 'Preto', 'Cinza', 'Marrom']
@@ -91,13 +92,39 @@ export function AnimalForm({ phone }: { phone?: string }) {
               <Column size={12}>
                 <h2>Sobre o animal</h2>
               </Column>
-              <Column size={6}>
+              <Column size={4}>
                 <Fieldset label="Nome" info="Caso possua identificação">
                   <Input {...register('name')} placeholder="Nome do animal" />
                 </Fieldset>
               </Column>
 
-              <Column size={6}>
+              <Column size={4}>
+                <Controller
+                  control={control}
+                  rules={{ required: requiredField }}
+                  name="situation"
+                  render={({ field }) => {
+                    return (
+                      <Fieldset label="Situação" error={formState.errors.situation?.message} required>
+                        <Select onValueChange={(value) => field.onChange(value)}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Selecine" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {situation.map((item) => (
+                              <SelectItem key={item} value={item}>
+                                {item}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </Fieldset>
+                    )
+                  }}
+                />
+              </Column>
+
+              <Column size={4}>
                 <Controller
                   control={control}
                   name="gender"

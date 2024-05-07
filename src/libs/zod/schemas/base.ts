@@ -24,7 +24,7 @@ export const animalSchema = z
     user: z.any(),
     name: z.string().optional(),
     species: z.string(),
-    gender: z.enum(['MALE', 'FEMALE']),
+    gender: z.string(),
     color: z.string({ message: requiredField.message }),
     breed: z.string().optional(),
     rescue: z.object({
@@ -46,7 +46,7 @@ export const animalSchema = z
       number: z.string().optional(),
       complement: z.string().optional(),
     }),
-    handedOverToOwner: z.boolean(),
+    situation: z.string({ message: requiredField.message }),
     pictures: z.array(z.string()),
     observations: z.string().optional(),
   })
