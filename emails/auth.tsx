@@ -24,8 +24,8 @@ export default function AuthEmail({ baseUrl, token }: Props) {
         </Text>
       </Section>
       <Section>
-        <Link href={`${baseUrl}/auth?token=${token}`} className="text-black underline font-semibold">
-          Clique aqui para acessar
+        <Link href={`${baseUrl}/email-confirmation?token=${token}`} className="text-black underline font-semibold">
+          Clique aqui para confirmar sua conta
         </Link>
         !
       </Section>{' '}

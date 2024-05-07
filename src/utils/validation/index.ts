@@ -21,7 +21,7 @@ export const emailPattern: Validation = {
 }
 
 export const passwordPattern: Validation = {
-  message: 'Uppercase, lowercase, number and special characters',
+  message: 'Letras maiúsculas, minúsculas, números e caracteres especiais',
   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$&*])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
 }
 

@@ -7,7 +7,7 @@ import { getTokenData } from '~/utils/auth'
 export async function getAuthenticatedUser() {
   const tokenData = await getTokenData()
   if (!tokenData) return null
-  const user = await schemas.user.findOne({ email: tokenData.email })
+  const user = await schemas.user.findOne({ email: tokenData.email, emailConfirmed: true })
   if (!user) return null
   return parseObject(user)
 }

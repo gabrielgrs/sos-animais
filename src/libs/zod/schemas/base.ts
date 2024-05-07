@@ -10,9 +10,11 @@ export const documentSchema = z.object({
 
 export const userSchema = z
   .object({
-    email: z.string(),
-    name: z.string().optional(),
-    phone: z.string().optional(),
+    email: z.string({ message: requiredField.message }),
+    password: z.string({ message: requiredField.message }),
+    name: z.string({ message: requiredField.message }),
+    phone: z.string({ message: requiredField.message }),
+    emailConfirmed: z.boolean().default(false),
     role: z.enum(['USER', 'ADMIN']),
   })
   .merge(documentSchema)

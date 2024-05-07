@@ -17,7 +17,7 @@ function Footer({ baseUrl }: { baseUrl: string }) {
         {APP_NAME}
       </Link>
       <br />
-      <Text className="text-xs opacity-70"> If you didn{"'"}t request this, please just ignore this email!</Text>
+      <Text className="text-xs opacity-70"> Se você não solicitou este e-mail, apenas o ignore.</Text>
     </>
   )
 }

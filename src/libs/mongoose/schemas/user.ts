@@ -11,6 +11,14 @@ const schema = new Schema<UserSchema>(
       trim: true,
       match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
     },
+    password: {
+      type: String,
+      required: true,
+    },
+    emailConfirmed: {
+      type: Boolean,
+      default: false,
+    },
     name: {
       type: String,
       required: false,

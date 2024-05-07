@@ -35,9 +35,14 @@ export function Navbar({ logoHref = '/' }) {
   return (
     <nav className={styles}>
       <Logo href={logoHref} />
-      <Link href="/auth" className={buttonVariants({ variant: 'link' })}>
-        Login
-      </Link>
+      <div className="flex items-center gap-2">
+        <Link href="/cadastro" className={buttonVariants({ variant: 'link' })}>
+          Cadastre-se
+        </Link>
+        <Link href="/acesso" className={buttonVariants({ variant: 'link' })}>
+          Acessar sua conta
+        </Link>
+      </div>
     </nav>
   )
 }
