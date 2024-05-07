@@ -10,7 +10,7 @@ export async function createAnimal(data: AnimalSchema) {
 
   const animal = await schemas.animal.create({
     ...data,
-    userId: tokenData._id,
+    user: tokenData._id,
     foundDate: new Date(data.rescue.date),
   })
 

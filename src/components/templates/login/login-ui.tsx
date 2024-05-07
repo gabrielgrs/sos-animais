@@ -31,7 +31,7 @@ export function LoginUI({ isAuthenticated = false }) {
   if (isAuthenticated) return <Loader2 className="m-2 text-primary animate-spin" />
 
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 pt-28 md:pt-[20vh] md:mt-0 mx-auto max-w-4xl">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 pt-28 md:mt-0 mx-auto max-w-4xl">
       <div className="flex flex-col items-center justify-center">
         <Link
           href="/"

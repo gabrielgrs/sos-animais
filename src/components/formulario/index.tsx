@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { Controller, FormProvider, useForm } from 'react-hook-form'
+import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
+import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { createAnimal } from '~/actions/animal/create'
 import { Column, Fieldset, Grid, Link } from '~/components'
@@ -29,6 +31,8 @@ export function AnimalForm({ phone }: { phone?: string }) {
   const { handleSubmit, formState, register, control } = form
   const { push } = useRouter()
   const [step, setStep] = useState(0)
+
+  const pictures = useWatch({ control, name: 'pictures' }) || []
 
   const onSubmit = async (data: Partial<AnimalSchema>) => {
     try {
@@ -366,12 +370,32 @@ export function AnimalForm({ phone }: { phone?: string }) {
                 <Input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => {
-                    onUploadFiles(e.target.files)
+                  onChange={(event) => {
+                    onUploadFiles(event.target.files)
                   }}
                   multiple
                 />
+                {isUploadingFile && (
+                  <p className="text-muted-foreground flex items-center gap-2">
+                    Salvando imagens <Loader2 size={16} className="animate-spin" />
+                  </p>
+                )}
               </Column>
+
+              {pictures.length > 0 && (
+                <Column size={12} className="flex items-center gap-2">
+                  {pictures.map((url, index) => (
+                    <Image
+                      key={url}
+                      src={url}
+                      alt={`imagem ${index}`}
+                      className="h-40 w-full object-cover"
+                      width={300}
+                      height={300}
+                    />
+                  ))}
+                </Column>
+              )}
 
               <Column size={12}>
                 <Fieldset label="Informações adicionais" info="Toda e qualquer informação é válida">
